@@ -1,0 +1,60 @@
+{%comment%} for variant images dynamicly {%endcomment%}
+{%comment%}
+<div class="ProductForm__Variants">
+    <label for="more-colors">Color</label>
+    <ul id="more-colors" class="more-colors">{% capture colors-handle %}{{product.url | remove: '/products/' | remove: '-1' | remove: '-2' | remove: '-3' | remove: '-4' | remove: '-5' | remove: '-6' | remove: '-7' | remove: '-8' | remove: '-9' | remove: '-10'}},{% for i in (1..10) %}{{product.url | remove: '/products/' | remove: '-1' | remove: '-2' | remove: '-3' | remove: '-4' | remove: '-5' | remove: '-6' | remove: '-7' | remove: '-8' | remove: '-9' | remove: '-10'}}-{{i}}{% if forloop.last %}{% else %},{% endif %}{% endfor %}{% endcapture %}{% assign allcolors = colors-handle | split: ',' %}
+      {% for color in allcolors %}{% assign pcolor = all_products[color] %}{% if pcolor != empty %}
+      <li{% if pcolor.url == product.url %} class="active"{% endif %}><a href="{{ pcolor.url }}" class="color-list"><img src="{{ pcolor.featured_image | img_url:'40x' }}" title="{{ pcolor.title | split: ' - ' | last }}" alt="{{ pcolor.title | split: ' - ' | last }}" /></a></li>
+      {% endif %}{% endfor %}
+    </ul>
+</div>
+{%endcomment%}
+
+<div class="ProductForm__Variants">
+    <label for="more-colors">Color</label>
+    <ul id="more-colors" class="more-colors">{% capture colors-handle %}{{product.url | remove: '/products/' | remove: '-1' | remove: '-2' | remove: '-3' | remove: '-4' | remove: '-5' | remove: '-6' | remove: '-7' | remove: '-8' | remove: '-9' | remove: '-10'}},{% for i in (1..10) %}{{product.url | remove: '/products/' | remove: '-1' | remove: '-2' | remove: '-3' | remove: '-4' | remove: '-5' | remove: '-6' | remove: '-7' | remove: '-8' | remove: '-9' | remove: '-10'}}-{{i}}{% if forloop.last %}{% else %},{% endif %}{% endfor %}{% endcapture %}{% assign allcolors = colors-handle | split: ',' %}
+      {% for color in allcolors %}{% assign pcolor = all_products[color] %}{% if pcolor != empty %}
+      <li{% if pcolor.url == product.url %} class="active"{% endif %}><a href="{{ pcolor.url }}" class="color-list"><span class="codehouse-{{ pcolor.title | split: ' - ' | last | handle }}" title="{{ pcolor.title | split: ' - ' | last }}"></span></a></li>
+      {% endif %}{% endfor %}
+    </ul>
+</div>
+<style>
+ul.more-colors {
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+}
+ul.more-colors li {
+    display: inline-block;
+    margin: 0 8px 0 0;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
+}
+ul.more-colors li.active {
+    border: 2px solid #000;
+    border-radius: 50%;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+}
+ul.more-colors li a {
+    display: block;
+    border-radius: 50%;
+}
+ul.more-colors li a img, ul.more-colors li a span {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: none;
+	display: block;
+    background: #e8e8e8;
+}
+.ProductForm__Variants label[for="more-colors"] {
+    margin: 8px 0;
+    display: block;
+}
+</style>
