@@ -10,14 +10,15 @@
 </div>
 {%endcomment%}
 
+{% if product.tags contains 'hide-color' %}{% else %}
 <div class="ProductForm__Variants">
-    <label for="more-colors">Color</label>
+    <label for="more-colors">Colour</label>
     <ul id="more-colors" class="more-colors">{% capture colors-handle %}{{product.url | remove: '/products/' | remove: '-1' | remove: '-2' | remove: '-3' | remove: '-4' | remove: '-5' | remove: '-6' | remove: '-7' | remove: '-8' | remove: '-9' | remove: '-10'}},{% for i in (1..10) %}{{product.url | remove: '/products/' | remove: '-1' | remove: '-2' | remove: '-3' | remove: '-4' | remove: '-5' | remove: '-6' | remove: '-7' | remove: '-8' | remove: '-9' | remove: '-10'}}-{{i}}{% if forloop.last %}{% else %},{% endif %}{% endfor %}{% endcapture %}{% assign allcolors = colors-handle | split: ',' %}
       {% for color in allcolors %}{% assign pcolor = all_products[color] %}{% if pcolor != empty %}
       <li{% if pcolor.url == product.url %} class="active"{% endif %}><a href="{{ pcolor.url }}" class="color-list"><span class="codehouse-{{ pcolor.title | split: ' - ' | last | handle }}" title="{{ pcolor.title | split: ' - ' | last }}"></span></a></li>
       {% endif %}{% endfor %}
     </ul>
-</div>
+</div>{% endif %}
 <style>
 ul.more-colors {
     list-style: none;
