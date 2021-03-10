@@ -1,0 +1,10 @@
+{% assign acolor = false %}{% for tcolor in product.tags %}{% if tcolor contains 'products/' %}{% assign acolor = true %}{% endif %}{% endfor %}{% if acolor == true %}
+<div class="ProductForm__Variants">
+    <label for="more-colors">Color</label>
+    <ul id="more-colors" class="more-colors">
+      <li class="active"><a href="{{ product.url }}" class="color-list"><img src="{{ product.featured_image | img_url:'40x' }}" title="{{ product.title | split: ' - ' | last }}" alt="{{ product.title | split: ' - ' | last }}" /></a></li>
+      {% for tcolor in product.tags %}{% if tcolor contains 'products/' %}{% assign scolor = tcolor | replace: 'products/', '' %}{% assign pcolor = all_products[scolor] %}{% if pcolor != empty %}
+      <li{% if pcolor.url == product.url %} class="active"{% endif %}><a href="{{ pcolor.url }}" class="color-list"><img src="{{ pcolor.featured_image | img_url:'40x' }}" title="{{ pcolor.title | split: ' - ' | last }}" alt="{{ pcolor.title | split: ' - ' | last }}" /></a></li>
+      {% endif %}{% endif %}{% endfor %}
+    </ul>
+</div>{% endif %}
